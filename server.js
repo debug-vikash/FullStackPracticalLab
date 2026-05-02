@@ -6,6 +6,8 @@ const PORT = 3000;
 const log = 'visitors.log';
 const backup = 'backup.log';
 
+if (!fs.existsSync(log)) fs.writeFileSync(log, '');
+
 const server = http.createServer((req,res) => {
     const url = req.url;
     const method = req.method;
@@ -18,7 +20,7 @@ const server = http.createServer((req,res) => {
     }
 
     else if(url === '/get/savelog'){
-        fs.readFile(log, 'utf-8' , (err, data) => {
+        fs.readFile(log, 'utf8' , (err, data) => {
             if(err) return send(500, {error: 'fail'})
                 else{send (200, {success: 'log saved'})}
         })
@@ -47,5 +49,5 @@ const server = http.createServer((req,res) => {
 });
 
     server.listen(PORT, () => {
-        console.log("server is run on port" + PORT);
+        console.log("server is run on port" + PORT)
     })
