@@ -6,9 +6,6 @@ const PORT = 3000;
 const log = 'visitors.log';
 const backup = 'backup.log';
 
-if(!fs.exixtsSync(log))
-    fs.writeFileSync(log,' ');
-
 const server = http.createServer((req,res) => {
     const url = req.url;
     const method = req.method;
@@ -32,5 +29,23 @@ const server = http.createServer((req,res) => {
                 else{send (200, {backup : 'backup done'})}
         })
     }
-    
+     else if(url === '/get/clearlog'){
+        fs.writeFile(log, '' , err => {
+            if(err) return send(500, {error: 'fail'})
+                else{send (200, {cleared: 'log cleared'})}
+        })
+    }
+    else if(url === '/get/serviceinfo'){
+        const info = {
+            platform: os.platform(),
+            cpu : os.cpus(),
+            memory : os.freemem(),
+            uptime : os.uptime()
+        }
+        send(200, {success: info})
+    }
 });
+
+    server.listen(PORT, () => {
+        console.log("server is run on port" + PORT);
+    })
