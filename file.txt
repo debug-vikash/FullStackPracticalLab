@@ -1,0 +1,9 @@
+node.js http server (core modules only)
+
+create an http server using only node.js core modules (no express, no npm, no npm package).
+ the server must run on port 3000 and support the following routes
+1 get/updateUser append a new visiter entry with the current timestamp to visitors.log
+2 get/saveLog read and return the full contents of visitors.log
+3 post/backup copy the content of visitors.log into a new file called backup.log
+4 get/clearlog clear the contents of visitors.log
+5 get/serviceinfo return system information in json format  
